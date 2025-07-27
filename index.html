@@ -87,13 +87,15 @@
     <div class="container">
         <h1>🎰 ペア決定ツール 🎰</h1>
         <button id="startBtn">スタート</button>
+        <audio id="seRoulette" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12c6b6b6b6.mp3"></audio>
+        <audio id="seResult" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12c6b6b6b6.mp3"></audio>
         <div class="result" id="result"></div>
     </div>
     <script>
         // 参加者リスト
         const members = ["るいん", "まむたろ", "りべるて", "とうや", "かに１", "かに２", "まるもぐ", "かぼ", "れお", "めろん"];
         // NGペアリスト
-        const badPairs = [["るいん", "まむたろ"]];
+        const badPairs = [["るいん", "まむたろ"], ["かに1", "かに2"]];
 
         function isValidPair(a, b, badPairs) {
             return badPairs.every(pair => {
@@ -139,14 +141,55 @@
             return pairs;
         }
 
-        document.getElementById('startBtn').onclick = function () {
-            const pairs = generateValidPairs(members, badPairs);
-            let html = '<span style="font-size:1.1em;">🎉 決定ペア 🎉</span><br>';
-            for (const [a, b] of pairs) {
-                html += `<span class="pair">- ${a} ＆ ${b}</span>`;
+        const startBtn = document.getElementById('startBtn');
+        const resultDiv = document.getElementById('result');
+        const seRoulette = document.getElementById('seRoulette');
+        const seResult = document.getElementById('seResult');
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        startBtn.onclick = async function () {
+            startBtn.disabled = true;
+            resultDiv.innerHTML = '<span style="font-size:1.2em;">🎲 ペア抽選中... 🎲</span>';
+            seRoulette.currentTime = 0;
+            seRoulette.play();
+            // ルーレット風アニメーション
+            let fakePairs = [];
+            for (let i = 0; i < 10; i++) {
+                fakePairs = generateValidPairs(members, []);
+                let html = '<span style="font-size:1.1em;">🎲 抽選中... 🎲</span><br>';
+                for (const [a, b] of fakePairs) {
+                    html += `<span class="pair">- ${a} ＆ ${b}</span>`;
+                }
+                resultDiv.innerHTML = html;
+                await sleep(120 + i * 25);
             }
-            document.getElementById('result').innerHTML = html;
+            seRoulette.pause();
+            seRoulette.currentTime = 0;
+            // 本当のペア決定
+            const pairs = generateValidPairs(members, badPairs);
+            seResult.currentTime = 0;
+            seResult.play();
+            let html = '<span style="font-size:1.3em; color:#fc5c7d; font-weight:bold;">🎉 決定ペア 🎉</span><br>';
+            for (const [a, b] of pairs) {
+                html += `<span class="pair" style="animation:pop 0.5s;">- ${a} ＆ ${b}</span>`;
+            }
+            resultDiv.innerHTML = html;
+            startBtn.disabled = false;
         };
+
+        // ポップアニメーション
+        const style = document.createElement('style');
+        style.innerHTML = `
+        @keyframes pop {
+            0% { transform: scale(0.7); opacity: 0.2; }
+            60% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 
