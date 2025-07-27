@@ -17,25 +17,20 @@
         }
 
         .container {
-            background: linear-gradient(135deg, #fffbe6 0%, #ffe9b3 100%);
+            background: #fff;
             margin-top: 60px;
             padding: 32px 28px 24px 28px;
             border-radius: 18px;
-            box-shadow: 0 8px 32px 0 #ffd70099, 0 4px 24px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
             min-width: 340px;
             max-width: 95vw;
-            border: 3px solid #ffd700;
-            position: relative;
         }
 
         h1 {
             text-align: center;
-            font-size: 2.2rem;
+            font-size: 2rem;
             margin-bottom: 18px;
-            color: #ffd700;
-            text-shadow: 0 0 8px #fff, 0 0 16px #ffd700, 2px 2px 0 #bfa100;
-            letter-spacing: 0.08em;
-            font-weight: bold;
+            color: #3a3a5a;
         }
 
         button {
@@ -57,106 +52,46 @@
         }
 
         .result {
-            background: linear-gradient(90deg, #fffbe6 0%, #ffe9b3 100%);
-            border-radius: 14px;
-            padding: 22px 14px 18px 14px;
+            background: #f0f4ff;
+            border-radius: 10px;
+            padding: 18px 12px;
             margin-top: 10px;
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             min-height: 120px;
             color: #2a2a3a;
             letter-spacing: 0.02em;
             white-space: pre-line;
-            box-shadow: 0 0 24px #ffd70044;
-            border: 2px solid #ffd700;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
         .pair {
             font-weight: bold;
-            margin-bottom: 8px;
-            display: grid;
-            grid-template-columns: 10em 3em 12em;
+            margin-bottom: 4px;
+            display: flex;
             align-items: center;
             font-family: 'Menlo', 'Consolas', 'monospace', 'Meiryo', sans-serif;
             font-variant-numeric: tabular-nums;
-            background: linear-gradient(90deg, #fff 0%, #fffbe6 100%);
-            border-radius: 6px;
-            box-shadow: 0 0 8px #ffd70044;
-            padding: 2px 0 2px 0;
-            animation: pairFlash 1.2s;
-            width: 28em;
-            min-width: 22em;
-            max-width: 98vw;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        @keyframes pairFlash {
-            0% {
-                box-shadow: 0 0 0 #ffd70000;
-                background: #fffbe6;
-            }
-
-            30% {
-                box-shadow: 0 0 32px #ffd700cc;
-                background: #fffbe6;
-            }
-
-            60% {
-                box-shadow: 0 0 16px #ffd70099;
-                background: #fffbe6;
-            }
-
-            100% {
-                box-shadow: 0 0 8px #ffd70044;
-                background: #fffbe6;
-            }
         }
 
         .pair .from {
             display: flex;
             align-items: center;
-            color: #1e4fa0;
+            min-width: 9.5em;
+            max-width: 9.5em;
+            color: #3a5ad7;
             letter-spacing: 0.02em;
-            font-weight: bold;
-            font-size: 1.08em;
-            text-shadow: 0 0 2px #fff, 0 0 6px #ffd70044;
-            justify-content: flex-start;
-            width: 100%;
         }
 
         .pair .from-name {
+            min-width: 5.5em;
+            max-width: 5.5em;
             text-align: left;
-            flex: 1;
+            display: inline-block;
         }
 
         .pair .from-role {
             text-align: right;
-            min-width: 3.5em;
-        }
-
-        .pair .to {
-            display: flex;
-            align-items: center;
-            color: #c81e4a;
-            letter-spacing: 0.02em;
-            font-weight: bold;
-            font-size: 1.08em;
-            text-shadow: 0 0 2px #fff, 0 0 6px #ffd70044;
-            justify-content: flex-end;
-            width: 100%;
-        }
-
-        .pair .to-name {
-            text-align: left;
+            display: inline-block;
             flex: 1;
-        }
-
-        .pair .to-role {
-            text-align: right;
-            min-width: 4.5em;
         }
 
         .pair .arrow {
@@ -166,31 +101,32 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #ffd700;
-            font-size: 1.5em;
+            color: #3a5ad7;
+            font-size: 1.25em;
             line-height: 1;
             height: 1.6em;
-            filter: drop-shadow(0 0 4px #fffbe6) drop-shadow(0 0 8px #ffd70099);
-            animation: arrowShine 1.2s;
-            grid-column: 2;
-            justify-self: center;
         }
 
-        @keyframes arrowShine {
-            0% {
-                color: #fffbe6;
-                filter: drop-shadow(0 0 0 #ffd70000);
-            }
+        .pair .to {
+            display: flex;
+            align-items: center;
+            min-width: 9.5em;
+            max-width: 9.5em;
+            color: #fc5c7d;
+            letter-spacing: 0.02em;
+        }
 
-            40% {
-                color: #ffd700;
-                filter: drop-shadow(0 0 12px #ffd700cc);
-            }
+        .pair .to-name {
+            min-width: 5.5em;
+            max-width: 5.5em;
+            text-align: left;
+            display: inline-block;
+        }
 
-            100% {
-                color: #ffd700;
-                filter: drop-shadow(0 0 4px #fffbe6) drop-shadow(0 0 8px #ffd70099);
-            }
+        .pair .to-role {
+            text-align: right;
+            display: inline-block;
+            flex: 1;
         }
 
         @media (max-width: 500px) {
@@ -212,7 +148,6 @@
         <button id="startBtn">スタート</button>
         <audio id="seRoulette" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12c6b6b6b6.mp3"></audio>
         <audio id="seResult" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12c6b6b6b6.mp3"></audio>
-        <audio id="seBigWin" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12c6b6b6b6.mp3"></audio>
         <div class="result" id="result"></div>
     </div>
     <footer style="margin-top:32px; color:#888; font-size:0.95em; text-align:center; opacity:0.7;">
@@ -259,7 +194,6 @@
         const resultDiv = document.getElementById('result');
         const seRoulette = document.getElementById('seRoulette');
         const seResult = document.getElementById('seResult');
-        const seBigWin = document.getElementById('seBigWin');
 
         function sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
@@ -267,23 +201,27 @@
 
         startBtn.onclick = async function () {
             startBtn.disabled = true;
-            resultDiv.innerHTML = '<span style="font-size:1.3em; color:#ffd700; font-weight:bold; display:block; text-align:center; text-shadow:0 0 8px #fff,0 0 16px #ffd700;letter-spacing:0.08em;">🎲 超ドキドキ！運命の抽選タイム 🎲</span>';
+            resultDiv.innerHTML = '<span style="font-size:1.2em;">🎲 割り当て抽選中... 🎲</span>';
             seRoulette.currentTime = 0;
             seRoulette.play();
             // ルーレット風アニメーション
             let fakeAssign = [];
-            for (let i = 0; i < 14; i++) {
+            for (let i = 0; i < 10; i++) {
                 fakeAssign = generateAssignments(members, []);
-                let html = `<span style="font-size:1.2em; color:#ffd700; font-weight:bold; display:block; text-align:center; text-shadow:0 0 8px #fff,0 0 16px #ffd700;letter-spacing:0.08em;">${i < 12 ? '🎰 ルーレット回転中... 🎰' : '✨ ストップ！運命の結果は... ✨'}</span><br>`;
+                let html = '<span style="font-size:1.1em; display:block; text-align:center;">🎲 抽選中... 🎲</span><br>';
                 for (const [from, to] of fakeAssign) {
-                    html += `<span class="pair" style="animation:pairFlash 0.7s;">
-                        <span class="from"><span class="from-name">${from}</span><span class="from-role"> のラフ</span></span>
+                    html += `<span class="pair">
+                        <span class="from">
+                            <span class="from-name">${from}</span><span class="from-role"> のラフ</span>
+                        </span>
                         <span class="arrow">→</span>
-                        <span class="to"><span class="to-name">${to}</span><span class="to-role"> が清書</span></span>
+                        <span class="to">
+                            <span class="to-name">${to}</span><span class="to-role"> が清書</span>
+                        </span>
                     </span>`;
                 }
                 resultDiv.innerHTML = html;
-                await sleep(90 + i * 18);
+                await sleep(120 + i * 25);
             }
             seRoulette.pause();
             seRoulette.currentTime = 0;
@@ -296,19 +234,18 @@
                 startBtn.disabled = false;
                 return;
             }
-            seBigWin.currentTime = 0;
-            seBigWin.play();
-            // フラッシュ演出
-            document.body.classList.add('flash-gold');
-            setTimeout(() => {
-                document.body.classList.remove('flash-gold');
-            }, 700);
-            let html = '<span style="font-size:2em; color:#ffd700; font-weight:bold; display:block; text-align:center; text-shadow:0 0 12px #fff,0 0 24px #ffd700;letter-spacing:0.12em;">🎉 ラフ→清書 割り当て発表！ 🎉</span><br>';
+            seResult.currentTime = 0;
+            seResult.play();
+            let html = '<span style="font-size:1.3em; color:#2bb673; font-weight:bold; display:block; text-align:center;">🎉 ラフ→清書 割り当て 🎉</span><br>';
             for (const [from, to] of assignments) {
-                html += `<span class="pair" style="animation:pop 0.7s;">
-                    <span class="from"><span class="from-name">${from}</span><span class="from-role"> のラフ</span></span>
+                html += `<span class="pair" style="animation:pop 0.5s;">
+                    <span class="from">
+                        <span class="from-name">${from}</span><span class="from-role"> のラフ</span>
+                    </span>
                     <span class="arrow">→</span>
-                    <span class="to"><span class="to-name">${to}</span><span class="to-role"> が清書</span></span>
+                    <span class="to">
+                        <span class="to-name">${to}</span><span class="to-role"> が清書</span>
+                    </span>
                 </span>`;
             }
             resultDiv.innerHTML = html;
@@ -325,26 +262,6 @@
         }
         `;
         document.head.appendChild(style);
-
-        // ゴールドフラッシュ演出
-        const flashStyle = document.createElement('style');
-        flashStyle.innerHTML = `
-body.flash-gold::before {
-    content: '';
-    position: fixed;
-    z-index: 9999;
-    left: 0; top: 0; right: 0; bottom: 0;
-    background: radial-gradient(circle, #fffbe6cc 0%, #ffd70088 60%, #fffbe600 100%);
-    pointer-events: none;
-    animation: flashGold 0.7s;
-}
-@keyframes flashGold {
-    0% { opacity: 0; }
-    20% { opacity: 1; }
-    100% { opacity: 0; }
-}
-`;
-        document.head.appendChild(flashStyle);
     </script>
 </body>
 
