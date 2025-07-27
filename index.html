@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ペア決定ツール</title>
+    <style>
+        body {
+            background: #f7f7fa;
+            font-family: 'Segoe UI', 'Meiryo', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: #fff;
+            margin-top: 60px;
+            padding: 32px 28px 24px 28px;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            min-width: 340px;
+            max-width: 95vw;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 18px;
+            color: #3a3a5a;
+        }
+
+        button {
+            display: block;
+            margin: 18px auto 10px auto;
+            padding: 10px 36px;
+            font-size: 1.2rem;
+            background: linear-gradient(90deg, #6a82fb 0%, #fc5c7d 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(100, 100, 150, 0.08);
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #fc5c7d 0%, #6a82fb 100%);
+        }
+
+        .result {
+            background: #f0f4ff;
+            border-radius: 10px;
+            padding: 18px 12px;
+            margin-top: 10px;
+            font-size: 1.1rem;
+            min-height: 120px;
+            color: #2a2a3a;
+            letter-spacing: 0.02em;
+            white-space: pre-line;
+        }
+
+        .pair {
+            font-weight: bold;
+            color: #3a5ad7;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                min-width: unset;
+                padding: 12px 4vw;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🎰 ペア決定ツール 🎰</h1>
+        <button id="startBtn">スタート</button>
+        <div class="result" id="result"></div>
+    </div>
+    <script>
+        // 参加者リスト
+        const members = ["るいん", "まむたろ", "3", "4", "5", "6", "7", "8", "9", "10"];
+        // NGペアリスト
+        const badPairs = [["るいん", "まむたろ"]];
+
+        function isValidPair(a, b, badPairs) {
+            return badPairs.every(pair => {
+                return !(pair.includes(a) && pair.includes(b));
+            });
+        }
+
+        function generateValidPairs(members, badPairs) {
+            const shuffled = [...members];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            const pairs = [];
+            const used = new Set();
+            // NGペアの片割れを優先
+            const ngFirsts = new Set(badPairs.map(pair => pair[0]));
+            // まずNGペアの片割れから順に
+            for (const ng of ngFirsts) {
+                if (used.has(ng)) continue;
+                for (const other of shuffled) {
+                    if (other === ng || used.has(other)) continue;
+                    if (isValidPair(ng, other, badPairs)) {
+                        pairs.push([ng, other]);
+                        used.add(ng); used.add(other);
+                        break;
+                    }
+                }
+            }
+            // 残りのメンバーでペア作成
+            const rest = shuffled.filter(m => !used.has(m));
+            for (let i = 0; i < rest.length; i += 2) {
+                if (i + 1 < rest.length) {
+                    pairs.push([rest[i], rest[i + 1]]);
+                    used.add(rest[i]); used.add(rest[i + 1]);
+                }
+            }
+            // 表示順シャッフル
+            for (let i = pairs.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
+            }
+            return pairs;
+        }
+
+        document.getElementById('startBtn').onclick = function () {
+            const pairs = generateValidPairs(members, badPairs);
+            let html = '<span style="font-size:1.1em;">🎉 決定ペア 🎉</span><br>';
+            for (const [a, b] of pairs) {
+                html += `<span class="pair">- ${a} ＆ ${b}</span>`;
+            }
+            document.getElementById('result').innerHTML = html;
+        };
+    </script>
+</body>
+
+</html>
