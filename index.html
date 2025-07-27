@@ -67,7 +67,28 @@
             font-weight: bold;
             color: #3a5ad7;
             margin-bottom: 4px;
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .pair .from {
+            min-width: 5.5em;
+            text-align: right;
+            display: inline-block;
+        }
+
+        .pair .arrow {
+            min-width: 2.2em;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .pair .to {
+            min-width: 6em;
+            text-align: left;
+            display: inline-block;
         }
 
         @media (max-width: 500px) {
@@ -91,6 +112,9 @@
         <audio id="seResult" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12c6b6b6b6.mp3"></audio>
         <div class="result" id="result"></div>
     </div>
+    <footer style="margin-top:32px; color:#888; font-size:0.95em; text-align:center; opacity:0.7;">
+        created by じおじお
+    </footer>
     <script>
         // 参加者リスト
         const members = ["るいん", "まむたろ", "りべるて", "とうや", "かに", "まるもぐ", "かぼ", "れお", "めろん"];
@@ -168,7 +192,11 @@
             seResult.play();
             let html = '<span style="font-size:1.3em; color:#fc5c7d; font-weight:bold;">🎉 ラフ→清書 割り当て 🎉</span><br>';
             for (const [from, to] of assignments) {
-                html += `<span class="pair" style="animation:pop 0.5s;">${from} のラフ → <span style="color:#fc5c7d;">${to} が清書</span></span>`;
+                html += `<span class="pair" style="animation:pop 0.5s;">
+                    <span class="from">${from} のラフ</span>
+                    <span class="arrow">→</span>
+                    <span class="to"><span style=\"color:#fc5c7d;\">${to} が清書</span></span>
+                </span>`;
             }
             resultDiv.innerHTML = html;
             startBtn.disabled = false;
