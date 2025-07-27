@@ -57,7 +57,7 @@ def make_result_se(filename="seResult.wav", duration=0.5, rate=44100):
         np.linspace(1, 0, int(rate * 0.1))
     ])
     envelope = np.pad(envelope, (0, len(t) - len(envelope)), 'constant')
-    data *= envelope * 0.3  # 音量を下げる
+    data *= envelope * 0.8  # 音量を下げる
     data = (data * 32767).astype(np.int16)
     with wave.open(filename, "w") as wf:
         wf.setnchannels(1)
