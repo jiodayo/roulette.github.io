@@ -23,7 +23,7 @@
 
 ```js
 // 参加者リスト（五十音順推奨）
-const members = ["かに", "かぼ", "とうや", "まるもぐ", "まむたろ", "めろん", "りべるて", "るいん", "れお"];
+const members = ["A", "B", "C", "D"];
 // NGペアリスト（Base64で難読化されています）
-const badPairs = JSON.parse(atob("W1wi44K544Oe44OqXCIsIFwi44Kk44Oq44OeXCJdLCBbXCLjgqTjg6rjg57jgqRcIiwgXCLjgqfjg57jg6pcIl1d"));
+const badPairs = [[A, B], [A, D]]
 ```
