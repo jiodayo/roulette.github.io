@@ -156,7 +156,8 @@
     <script>
         // 参加者リスト
         const members = ["るいん", "まむたろ", "りべるて", "とうや", "かに", "まるもぐ", "かぼ", "れお", "めろん"];
-        const badPairs = JSON.parse(atob("W1wi44K544Oe44OqXCIsIFwi44Kk44Oq44OeXCJdLCBbXCLjgqTjg6rjg57jgqRcIiwgXCLjgqfjg57jg6pcIl1d"));
+        // NGペアリスト（[下書き, 清書]の組み合わせでNGがあればここに追加）
+        const badPairs = [["るいん", "まむたろ"], ["まむたろ", "るいん"]];
 
         // NGペア判定（a:下書き, b:清書）
         function isValidAssignment(a, b, badPairs) {
