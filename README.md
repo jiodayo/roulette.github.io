@@ -25,5 +25,5 @@
 // 参加者リスト
 const members = ["A", "B", "C", "D"];
 // NGペアリスト
-const badPairs = [[A, B], [A, D]]
+const badPairs = [["A", "B"], ["A", "D"]]
 ```
