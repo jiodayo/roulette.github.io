@@ -177,7 +177,7 @@
             let fakeAssign = [];
             for (let i = 0; i < 10; i++) {
                 fakeAssign = generateAssignments(members, []);
-                let html = '<span style="font-size:1.1em;">🎲 抽選中... 🎲</span><br>';
+                let html = '<span style="font-size:1.1em; display:block; text-align:center;">🎲 抽選中... 🎲</span><br>';
                 for (const [from, to] of fakeAssign) {
                     html += `<span class="pair">
                         <span class="from">${from} のラフ</span>
@@ -201,7 +201,7 @@
             }
             seResult.currentTime = 0;
             seResult.play();
-            let html = '<span style="font-size:1.3em; color:#3a5ad7; font-weight:bold; display:block; text-align:center;">🎉 ラフ→清書 割り当て 🎉</span><br>';
+            let html = '<span style="font-size:1.3em; color:#2bb673; font-weight:bold; display:block; text-align:center;">🎉 ラフ→清書 割り当て 🎉</span><br>';
             for (const [from, to] of assignments) {
                 html += `<span class="pair" style="animation:pop 0.5s;">
                     <span class="from">${from} のラフ</span>
