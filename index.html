@@ -73,11 +73,12 @@
         .pair {
             font-weight: bold;
             margin-bottom: 4px;
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 3em 1fr;
             align-items: center;
             font-family: 'Menlo', 'Consolas', 'monospace', 'Meiryo', sans-serif;
             font-variant-numeric: tabular-nums;
-            background: linear-gradient(90deg, #fffbe6 0%, #ffe9b3 100%);
+            background: linear-gradient(90deg, #fff 0%, #fffbe6 100%);
             border-radius: 6px;
             box-shadow: 0 0 8px #ffd70044;
             padding: 2px 0 2px 0;
@@ -109,25 +110,23 @@
         .pair .from {
             display: flex;
             align-items: center;
-            min-width: 9.5em;
-            max-width: 9.5em;
             color: #1e4fa0;
             letter-spacing: 0.02em;
             font-weight: bold;
             font-size: 1.08em;
             text-shadow: 0 0 2px #fff, 0 0 6px #ffd70044;
+            justify-content: flex-start;
         }
 
         .pair .to {
             display: flex;
             align-items: center;
-            min-width: 9.5em;
-            max-width: 9.5em;
-            color: #e13e5c;
+            color: #c81e4a;
             letter-spacing: 0.02em;
             font-weight: bold;
             font-size: 1.08em;
             text-shadow: 0 0 2px #fff, 0 0 6px #ffd70044;
+            justify-content: flex-end;
         }
 
         .pair .arrow {
@@ -143,6 +142,8 @@
             height: 1.6em;
             filter: drop-shadow(0 0 4px #fffbe6) drop-shadow(0 0 8px #ffd70099);
             animation: arrowShine 1.2s;
+            grid-column: 2;
+            justify-self: center;
         }
 
         @keyframes arrowShine {
@@ -246,14 +247,14 @@
                 let html = `<span style="font-size:1.2em; color:#ffd700; font-weight:bold; display:block; text-align:center; text-shadow:0 0 8px #fff,0 0 16px #ffd700;letter-spacing:0.08em;">${i < 12 ? '🎰 ルーレット回転中... 🎰' : '✨ ストップ！運命の結果は... ✨'}</span><br>`;
                 for (const [from, to] of fakeAssign) {
                     html += `<span class="pair" style="animation:pairFlash 0.7s;">
-                <span class="from">
-                    <span class="from-name">${from}</span><span class="from-role"> のラフ</span>
-                </span>
-                <span class="arrow">→</span>
-                <span class="to">
-                    <span class="to-name">${to}</span><span class="to-role"> が清書</span>
-                </span>
-            </span>`;
+                    <span class="from">
+                        <span class="from-name">${from}</span><span class="from-role"> のラフ</span>
+                    </span>
+                    <span class="arrow">→</span>
+                    <span class="to">
+                        <span class="to-name">${to}</span><span class="to-role"> が清書</span>
+                    </span>
+                </span>`;
                 }
                 resultDiv.innerHTML = html;
                 await sleep(90 + i * 18);
@@ -279,14 +280,14 @@
             let html = '<span style="font-size:2em; color:#ffd700; font-weight:bold; display:block; text-align:center; text-shadow:0 0 12px #fff,0 0 24px #ffd700;letter-spacing:0.12em;">🎉 ラフ→清書 割り当て発表！ 🎉</span><br>';
             for (const [from, to] of assignments) {
                 html += `<span class="pair" style="animation:pop 0.7s;">
-            <span class="from">
-                <span class="from-name">${from}</span><span class="from-role"> のラフ</span>
-            </span>
-            <span class="arrow">→</span>
-            <span class="to">
-                <span class="to-name">${to}</span><span class="to-role"> が清書</span>
-            </span>
-        </span>`;
+                    <span class="from">
+                        <span class="from-name">${from}</span><span class="from-role"> のラフ</span>
+                    </span>
+                    <span class="arrow">→</span>
+                    <span class="to">
+                        <span class="to-name">${to}</span><span class="to-role"> が清書</span>
+                    </span>
+                </span>`;
             }
             resultDiv.innerHTML = html;
             startBtn.disabled = false;
