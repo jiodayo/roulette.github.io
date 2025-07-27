@@ -157,7 +157,11 @@
         // 参加者リスト
         const members = ["かに", "かぼ", "とうや", "まるもぐ", "まむたろ", "めろん", "りべるて", "るいん", "れお"];
         // NGペアリスト
-        const badPairs = [["るいん", "まむたろ"], ["まむたろ", "るいん"]];
+        const badPairs = [
+            [atob("44KS44Kk44O844OQ"), atob("44K544K544Kv44Or")],
+            [atob("44K544K544Kv44Or"), atob("44KS44Kk44O844OQ")]
+        ];
+
 
         // NGペア判定（a:下書き, b:清書）
         function isValidAssignment(a, b, badPairs) {
