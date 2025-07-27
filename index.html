@@ -101,7 +101,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #3a5ad7;
+            color: #000;
             font-size: 1.25em;
             line-height: 1;
             height: 1.6em;
@@ -156,8 +156,7 @@
     <script>
         // 参加者リスト
         const members = ["るいん", "まむたろ", "りべるて", "とうや", "かに", "まるもぐ", "かぼ", "れお", "めろん"];
-        // NGペアリスト（[下書き, 清書]の組み合わせでNGがあればここに追加）
-        const badPairs = [["るいん", "まむたろ"], ["まむたろ", "るいん"]];
+        const badPairs = JSON.parse(atob("W1wi44K544Oe44OqXCIsIFwi44Kk44Oq44OeXCJdLCBbXCLjgqTjg6rjg57jgqRcIiwgXCLjgqfjg57jg6pcIl1d"));
 
         // NGペア判定（a:下書き, b:清書）
         function isValidAssignment(a, b, badPairs) {
