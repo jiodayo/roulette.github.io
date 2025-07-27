@@ -93,52 +93,39 @@
     </div>
     <script>
         // 参加者リスト
-        const members = ["るいん", "まむたろ", "りべるて", "とうや", "かに1", "かに2", "まるもぐ", "かぼ", "れお", "めろん"];
-        // NGペアリスト
-        const badPairs = [["るいん", "まむたろ"], ["かに1", "かに2"]];
+        const members = ["るいん", "まむたろ", "りべるて", "とうや", "かに", "まるもぐ", "かぼ", "れお", "めろん"];
+        // NGペアリスト（[下書き, 清書]の組み合わせでNGがあればここに追加）
+        const badPairs = [["るいん", "まむたろ"], ["まむたろ", "るいん"]];
 
-        function isValidPair(a, b, badPairs) {
-            return badPairs.every(pair => {
-                return !(pair.includes(a) && pair.includes(b));
-            });
+        // NGペア判定（a:下書き, b:清書）
+        function isValidAssignment(a, b, badPairs) {
+            return badPairs.every(pair => !(pair[0] === a && pair[1] === b));
         }
 
-        function generateValidPairs(members, badPairs) {
-            const shuffled = [...members];
-            for (let i = shuffled.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-            }
-            const pairs = [];
-            const used = new Set();
-            // NGペアの片割れを優先
-            const ngFirsts = new Set(badPairs.map(pair => pair[0]));
-            // まずNGペアの片割れから順に
-            for (const ng of ngFirsts) {
-                if (used.has(ng)) continue;
-                for (const other of shuffled) {
-                    if (other === ng || used.has(other)) continue;
-                    if (isValidPair(ng, other, badPairs)) {
-                        pairs.push([ng, other]);
-                        used.add(ng); used.add(other);
+        // 下書き->清書の割り当てを生成（A→BとB→Aは別物）
+        function generateAssignments(members, badPairs) {
+            let shuffled;
+            let tries = 0;
+            while (true) {
+                tries++;
+                shuffled = [...members];
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                // 自分→自分やNGペアがなければOK
+                let valid = true;
+                for (let i = 0; i < members.length; i++) {
+                    if (members[i] === shuffled[i] || !isValidAssignment(members[i], shuffled[i], badPairs)) {
+                        valid = false;
                         break;
                     }
                 }
+                if (valid) break;
+                if (tries > 1000) throw new Error("割り当て失敗: 条件が厳しすぎます");
             }
-            // 残りのメンバーでペア作成
-            const rest = shuffled.filter(m => !used.has(m));
-            for (let i = 0; i < rest.length; i += 2) {
-                if (i + 1 < rest.length) {
-                    pairs.push([rest[i], rest[i + 1]]);
-                    used.add(rest[i]); used.add(rest[i + 1]);
-                }
-            }
-            // 表示順シャッフル
-            for (let i = pairs.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
-            }
-            return pairs;
+            // [下書き, 清書]のペアリスト
+            return members.map((from, i) => [from, shuffled[i]]);
         }
 
         const startBtn = document.getElementById('startBtn');
@@ -152,29 +139,36 @@
 
         startBtn.onclick = async function () {
             startBtn.disabled = true;
-            resultDiv.innerHTML = '<span style="font-size:1.2em;">🎲 ペア抽選中... 🎲</span>';
+            resultDiv.innerHTML = '<span style="font-size:1.2em;">🎲 割り当て抽選中... 🎲</span>';
             seRoulette.currentTime = 0;
             seRoulette.play();
             // ルーレット風アニメーション
-            let fakePairs = [];
+            let fakeAssign = [];
             for (let i = 0; i < 10; i++) {
-                fakePairs = generateValidPairs(members, []);
+                fakeAssign = generateAssignments(members, []);
                 let html = '<span style="font-size:1.1em;">🎲 抽選中... 🎲</span><br>';
-                for (const [a, b] of fakePairs) {
-                    html += `<span class="pair">- ${a} ＆ ${b}</span>`;
+                for (const [from, to] of fakeAssign) {
+                    html += `<span class="pair">${from} → <span style="color:#fc5c7d;">${to}</span></span>`;
                 }
                 resultDiv.innerHTML = html;
                 await sleep(120 + i * 25);
             }
             seRoulette.pause();
             seRoulette.currentTime = 0;
-            // 本当のペア決定
-            const pairs = generateValidPairs(members, badPairs);
+            // 本当の割り当て決定
+            let assignments;
+            try {
+                assignments = generateAssignments(members, badPairs);
+            } catch (e) {
+                resultDiv.innerHTML = '<span style="color:red;">割り当てに失敗しました。NGペアや人数を見直してください。</span>';
+                startBtn.disabled = false;
+                return;
+            }
             seResult.currentTime = 0;
             seResult.play();
-            let html = '<span style="font-size:1.3em; color:#fc5c7d; font-weight:bold;">🎉 決定ペア 🎉</span><br>';
-            for (const [a, b] of pairs) {
-                html += `<span class="pair" style="animation:pop 0.5s;">- ${a} ＆ ${b}</span>`;
+            let html = '<span style="font-size:1.3em; color:#fc5c7d; font-weight:bold;">🎉 ラフ→清書 割り当て 🎉</span><br>';
+            for (const [from, to] of assignments) {
+                html += `<span class="pair" style="animation:pop 0.5s;">${from} のラフ → <span style="color:#fc5c7d;">${to} が清書</span></span>`;
             }
             resultDiv.innerHTML = html;
             startBtn.disabled = false;
