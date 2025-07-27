@@ -4,7 +4,7 @@ import wave
 def click_sound(rate=44100, length=0.04, freq=1800):
     t = np.linspace(0, length, int(rate * length), endpoint=False)
     # 短い矩形波でカチッとした音
-    data = 0.7 * np.sign(np.sin(2 * np.pi * freq * t))
+    data = 0.4 * np.sign(np.sin(2 * np.pi * freq * t))  # 音量を下げる
     # フェードアウト
     data *= np.linspace(1, 0, t.size)
     return data
@@ -12,7 +12,7 @@ def click_sound(rate=44100, length=0.04, freq=1800):
 def pin_sound(rate=44100, length=0.18, freq=2200):
     t = np.linspace(0, length, int(rate * length), endpoint=False)
     # 高音の減衰サイン波
-    data = 0.6 * np.sin(2 * np.pi * freq * t)
+    data = 0.3 * np.sin(2 * np.pi * freq * t)  # 音量を下げる
     data *= np.exp(-6 * t)
     return data
 
@@ -37,7 +37,7 @@ def make_roulette_se(filename="seRoulette.wav", rate=44100):
     if idx + len(pin) < len(sound):
         sound[idx:idx+len(pin)] += pin
     # 正規化
-    sound = sound / np.max(np.abs(sound)) * 0.95
+    sound = sound / np.max(np.abs(sound)) * 0.5  # 全体音量も下げる
     sound = (sound * 32767).astype(np.int16)
     with wave.open(filename, "w") as wf:
         wf.setnchannels(1)
@@ -57,7 +57,7 @@ def make_result_se(filename="seResult.wav", duration=0.5, rate=44100):
         np.linspace(1, 0, int(rate * 0.1))
     ])
     envelope = np.pad(envelope, (0, len(t) - len(envelope)), 'constant')
-    data *= envelope * 0.5
+    data *= envelope * 0.3  # 音量を下げる
     data = (data * 32767).astype(np.int16)
     with wave.open(filename, "w") as wf:
         wf.setnchannels(1)
