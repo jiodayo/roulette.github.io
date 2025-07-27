@@ -74,7 +74,7 @@
             font-weight: bold;
             margin-bottom: 4px;
             display: grid;
-            grid-template-columns: 1fr 3em 1fr;
+            grid-template-columns: 10em 3em 12em;
             align-items: center;
             font-family: 'Menlo', 'Consolas', 'monospace', 'Meiryo', sans-serif;
             font-variant-numeric: tabular-nums;
@@ -116,6 +116,17 @@
             font-size: 1.08em;
             text-shadow: 0 0 2px #fff, 0 0 6px #ffd70044;
             justify-content: flex-start;
+            width: 100%;
+        }
+
+        .pair .from-name {
+            text-align: left;
+            flex: 1;
+        }
+
+        .pair .from-role {
+            text-align: right;
+            min-width: 3.5em;
         }
 
         .pair .to {
@@ -127,6 +138,17 @@
             font-size: 1.08em;
             text-shadow: 0 0 2px #fff, 0 0 6px #ffd70044;
             justify-content: flex-end;
+            width: 100%;
+        }
+
+        .pair .to-name {
+            text-align: left;
+            flex: 1;
+        }
+
+        .pair .to-role {
+            text-align: right;
+            min-width: 4.5em;
         }
 
         .pair .arrow {
@@ -247,14 +269,10 @@
                 let html = `<span style="font-size:1.2em; color:#ffd700; font-weight:bold; display:block; text-align:center; text-shadow:0 0 8px #fff,0 0 16px #ffd700;letter-spacing:0.08em;">${i < 12 ? '🎰 ルーレット回転中... 🎰' : '✨ ストップ！運命の結果は... ✨'}</span><br>`;
                 for (const [from, to] of fakeAssign) {
                     html += `<span class="pair" style="animation:pairFlash 0.7s;">
-                    <span class="from">
-                        <span class="from-name">${from}</span><span class="from-role"> のラフ</span>
-                    </span>
-                    <span class="arrow">→</span>
-                    <span class="to">
-                        <span class="to-name">${to}</span><span class="to-role"> が清書</span>
-                    </span>
-                </span>`;
+                        <span class="from"><span class="from-name">${from}</span><span class="from-role"> のラフ</span></span>
+                        <span class="arrow">→</span>
+                        <span class="to"><span class="to-name">${to}</span><span class="to-role"> が清書</span></span>
+                    </span>`;
                 }
                 resultDiv.innerHTML = html;
                 await sleep(90 + i * 18);
@@ -280,13 +298,9 @@
             let html = '<span style="font-size:2em; color:#ffd700; font-weight:bold; display:block; text-align:center; text-shadow:0 0 12px #fff,0 0 24px #ffd700;letter-spacing:0.12em;">🎉 ラフ→清書 割り当て発表！ 🎉</span><br>';
             for (const [from, to] of assignments) {
                 html += `<span class="pair" style="animation:pop 0.7s;">
-                    <span class="from">
-                        <span class="from-name">${from}</span><span class="from-role"> のラフ</span>
-                    </span>
+                    <span class="from"><span class="from-name">${from}</span><span class="from-role"> のラフ</span></span>
                     <span class="arrow">→</span>
-                    <span class="to">
-                        <span class="to-name">${to}</span><span class="to-role"> が清書</span>
-                    </span>
+                    <span class="to"><span class="to-name">${to}</span><span class="to-role"> が清書</span></span>
                 </span>`;
             }
             resultDiv.innerHTML = html;
