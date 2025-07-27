@@ -146,8 +146,9 @@
     <div class="container">
         <h1>🎰 ペア決定ツール 🎰</h1>
         <button id="startBtn">スタート</button>
-        <audio id="seRoulette" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12c6b6b6b6.mp3"></audio>
-        <audio id="seResult" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12c6b6b6b6.mp3"></audio>
+        <audio id="seRoulette" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12c6b6b6b6.mp3"
+            preload="auto"></audio>
+        <audio id="seResult" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12c6b6b6b6.mp3" preload="auto"></audio>
         <div class="result" id="result"></div>
     </div>
     <footer style="margin-top:32px; color:#888; font-size:0.95em; text-align:center; opacity:0.7;">
@@ -198,6 +199,8 @@
         const resultDiv = document.getElementById('result');
         const seRoulette = document.getElementById('seRoulette');
         const seResult = document.getElementById('seResult');
+        seRoulette.muted = false;
+        seResult.muted = false;
 
         function sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
@@ -207,7 +210,7 @@
             startBtn.disabled = true;
             resultDiv.innerHTML = '<span style="font-size:1.2em;">🎲 割り当て抽選中... 🎲</span>';
             seRoulette.currentTime = 0;
-            seRoulette.play();
+            seRoulette.play().catch(() => { });
             // ルーレット風アニメーション
             let fakeAssign = [];
             for (let i = 0; i < 10; i++) {
@@ -239,7 +242,7 @@
                 return;
             }
             seResult.currentTime = 0;
-            seResult.play();
+            seResult.play().catch(() => { });
             let html = '<span style="font-size:1.3em; color:#2bb673; font-weight:bold; display:block; text-align:center;">🎉 ラフ→清書 割り当て 🎉</span><br>';
             for (const [from, to] of assignments) {
                 html += `<span class="pair" style="animation:pop 0.5s;">
