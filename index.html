@@ -65,30 +65,37 @@
 
         .pair {
             font-weight: bold;
-            color: #3a5ad7;
             margin-bottom: 4px;
             display: flex;
             align-items: center;
-            gap: 0.5em;
+            font-family: 'Menlo', 'Consolas', 'monospace', 'Meiryo', sans-serif;
             font-variant-numeric: tabular-nums;
         }
 
         .pair .from {
-            min-width: 5.5em;
+            min-width: 9.5em;
+            max-width: 9.5em;
             text-align: right;
             display: inline-block;
+            color: #3a5ad7;
+            letter-spacing: 0.02em;
         }
 
         .pair .arrow {
-            min-width: 2.2em;
+            min-width: 2.5em;
+            max-width: 2.5em;
             text-align: center;
             display: inline-block;
+            color: #3a5ad7;
         }
 
         .pair .to {
-            min-width: 6em;
+            min-width: 9.5em;
+            max-width: 9.5em;
             text-align: left;
             display: inline-block;
+            color: #fc5c7d;
+            letter-spacing: 0.02em;
         }
 
         @media (max-width: 500px) {
@@ -195,7 +202,7 @@
                 html += `<span class="pair" style="animation:pop 0.5s;">
                     <span class="from">${from} のラフ</span>
                     <span class="arrow">→</span>
-                    <span class="to"><span style=\"color:#fc5c7d;\">${to} が清書</span></span>
+                    <span class="to">${to} が清書</span>
                 </span>`;
             }
             resultDiv.innerHTML = html;
